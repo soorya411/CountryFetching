@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country fetching App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4 bg-light text-center w-25 mt-5">
+            <div class="text-center">
+                <input id="data" class="form-control mt-4" id="Country" placeholder="Enter the Country name">
+
+            </div>
+           <div class="mt-4 mb-4">
+            <button type="submit" onclick="searchData()" class="btn btn-success">Submit</button>
+
+           </div>
+                </div>
+
+        
+        <div class="col-4"></div>
+    </div>
+    <div id="result" class="d-flex justify-content-center justify-content-evenly  mt-4">
+
+    </div>
+    <script>
+        function searchData() {
+          let name=document.getElementById("data").value 
+          console.log(name);
+          fetch(`https://restcountries.com/v3.1/name/${name}?fullText=true`)
+           .then(data=>data.json())
+           .then(data2=>country(data2))
+           .catch(err=>alert(`Failed to fetch the country details`))
+           
+           function country(data2){
+            for(i of data2){
+                console.log(i);
+            
+                result.innerHTML = `
+<div class="card" style="width: 18rem;  height:25rem;">
+    <img src="${i.flags.png}" class="card-img-top" alt="...">
+ <div class="card-body">
+   <h5 class="card-text text-center">${name}</h5>
+   <p class="card-text">${i.flags.alt}</p>
+</div>
+</div>
+<div class="card" style="width: 18rem; ">
+    <img src="${i.coatOfArms.png}" class="card-img-top" alt="..." style="height:25rem;"">
+    </div>
+        `
+         
+        }
+}
+}
+
+    </script>
+</body>
+
+</html>
